@@ -14,15 +14,17 @@ PCI=13c3:2600
 
 do_start() {
 
+  modprobe jhal
+  
   IRQ=$(lspci -d $PCI -v | grep IRQ | cut -d' ' -f9)
   ADDRESSCAN0=0x$(lspci -d $PCI -v | grep =8K | head -n 1 | cut -d' ' -f3)
   ADDRESSCAN1=$(printf "0x%X\n" $(($ADDRESSCAN0 + 0x200)))
- 
-  modprobe jhal
+   
   modprobe can
   modprobe can-dev
   modprobe sja1000
   #modprobe sja1000_platform
+  # always two CANs, even if only one port is externally available
   modprobe jtec_can "io=0,$ADDRESSCAN0,$IRQ,$ADDRESSCAN1,$IRQ"
 
 }
