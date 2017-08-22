@@ -48,8 +48,9 @@ cd /tmp/empc-cxplus-linux-drivers
 CPU=$(if uname -a | grep "x86_64" >/dev/null; then echo "x86_64"; else echo "x86"; fi)
 
 # compile jhal driver
-tar -xzvf /home/jhal.tar.gz
-cd /tmp/empc-cxplus-linux-drivers/jhal
+wget -nv https://github.com/janztec/empc-cxplus-linux-drivers/raw/master/src/jhal.zip -O jhal.zip
+unzip jhal.zip
+cd jhal
 make driver
 
 cd /tmp/empc-cxplus-linux-drivers
