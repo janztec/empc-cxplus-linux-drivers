@@ -45,7 +45,7 @@ mkdir -p /tmp/empc-cxplus-linux-drivers
 cd /tmp/empc-cxplus-linux-drivers
 
 
-CPU=$(if uname -a | grep "x86_64"; then echo "x86_64"; else echo "x86"; fi)
+CPU=$(if uname -a | grep "x86_64" >/dev/null; then echo "x86_64"; else echo "x86"; fi)
 
 # compile jhal driver
 tar -xzvf /home/jhal.tar.gz
@@ -56,7 +56,7 @@ cd /tmp/empc-cxplus-linux-drivers
 
 if [ ! -f "jhal/arch/$CPU/$KERNEL/jhal.ko" ]; then
  echo -e "$ERR Error: Installation failed! (driver module jhal build failed) $NC" 1>&2
- whiptail --title "Error" --msgbox "Installation failed! (driver module jtec_can build failed)" 10 60
+ whiptail --title "Error" --msgbox "Installation failed! (driver module jhal build failed)" 10 60
  exit 1
 fi
 
