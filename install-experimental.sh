@@ -82,7 +82,7 @@ depmod -a
 
 
 
-wget -nv https://raw.githubusercontent.com/janztec/empc-x-linux-drivers/master/scripts/empc-can-configbaudrate.sh -O /usr/bin/empc-can-configbaudrate.sh
+wget -nv https://raw.githubusercontent.com/janztec/empc-cxplus-linux-drivers/master/scripts/empc-can-configbaudrate.sh -O /usr/bin/empc-can-configbaudrate.sh
 if [ ! -f "/usr/bin/empc-can-configbaudrate.sh" ]; then
  echo -e "$ERR Error: Installation failed! (empc-can-configbaudrate not installed) $NC" 1>&2
  whiptail --title "Error" --msgbox "Installation failed! (empc-can-configbaudrate not installed)" 10 60
