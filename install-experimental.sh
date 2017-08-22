@@ -82,6 +82,20 @@ depmod -a
 
 
 
+# Install jtec_can init service
+wget -nv https://raw.githubusercontent.com/janztec/empc-cxplus-linux-drivers/master/src/jtec_can -O /etc/init.d/jtec_can
+if [ ! -f "/etc/init.d/jtec_can" ]; then
+ echo -e "$ERR Error: Installation failed! (jtec_can not installed) $NC" 1>&2
+ whiptail --title "Error" --msgbox "Installation failed! (jtec_can not installed)" 10 60
+ exit 1
+fi
+
+chmod 755 /etc/init.d/jtec_can
+update-rc.d jtec_can defaults
+
+
+
+
 wget -nv https://raw.githubusercontent.com/janztec/empc-cxplus-linux-drivers/master/scripts/empc-can-configbaudrate.sh -O /usr/bin/empc-can-configbaudrate.sh
 if [ ! -f "/usr/bin/empc-can-configbaudrate.sh" ]; then
  echo -e "$ERR Error: Installation failed! (empc-can-configbaudrate not installed) $NC" 1>&2
