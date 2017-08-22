@@ -7,6 +7,8 @@ if [ $EUID -ne 0 ]; then
     exit 1
 fi
 
+IP=
+
 CANS=$()
 
 for can in 0 1
@@ -38,7 +40,7 @@ if [ $exitstatus = 0 ]; then
  echo "iface can$can inet manual" >>/etc/network/interfaces
  echo -e "\tpre-up /sbin/ip link set can$can type can bitrate $BAUDRATE""000 triple-sampling on" >>/etc/network/interfaces
  echo -e "\tup /sbin/ip link set can$can up txqueuelen 1000" >>/etc/network/interfaces
- echo -e "\tdown /sbin/ip can$can down" >>/etc/network/interfaces
+ echo -e "\tdown /sbin/ip link set can$can down" >>/etc/network/interfaces
 
 fi
 
