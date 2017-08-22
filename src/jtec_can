@@ -1,0 +1,49 @@
+#! /bin/bash
+
+### BEGIN INIT INFO
+# Provides:             jtec_can
+# Required-Start:       $remote_fs $syslog
+# Required-Stop:        $remote_fs $syslog
+# Default-Start:        2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:    Configure jtec_can 
+### END INIT INFO
+
+# emPC-CX+ vendor id, device id
+PCI=13c3:2600
+
+do_start() {
+
+  IRQ=$(lspci -d $PCI -v | grep IRQ | cut -d' ' -f9)
+  ADDRESS=0x$(lspci -d $PCI -v | grep =8K | tail -n 1 | cut -d' ' -f3)
+
+  modprobe jhal
+  modprobe can
+  modprobe can-dev
+  modprobe sja1000
+  modprobe sja1000_platform
+  modprobe jtec_can "io=0,$ADDRESS,$IRQ"
+
+  ADDRESS=$(printf "0x%X\n" $(($ADDRESS + 0x200)))
+  modprobe jtec_can "io=0,$ADDRESS,$IRQ"
+
+}
+
+case "$1" in
+  start|"")
+        do_start
+        ;;
+  restart|reload|force-reload)
+        echo "Error: argument '$1' not supported" >&2
+        exit 3
+        ;;
+  stop)
+        rmmod jtec_can
+        ;;
+  *)
+        echo "Usage: jtec_can [start|stop]" >&2
+        exit 3
+        ;;
+esac
+
+
