@@ -22,7 +22,7 @@ do_start() {
   modprobe can
   modprobe can-dev
   modprobe sja1000
-  modprobe sja1000_platform
+  #modprobe sja1000_platform
   modprobe jtec_can "io=0,$ADDRESSCAN0,$IRQ,$ADDRESSCAN1,$IRQ"
 
 }
