@@ -45,8 +45,28 @@ mkdir -p /tmp/empc-cxplus-linux-drivers
 cd /tmp/empc-cxplus-linux-drivers
 
 
-# compile jtec_can driver
+CPU=$(if uname -a | grep "x86_64"; then echo "x86_64"; else echo "x86"; fi)
 
+# compile jhal driver
+tar -xzvf /home/jhal.tar.gz
+cd /tmp/empc-cxplus-linux-drivers/jhal
+make driver
+
+cd /tmp/empc-cxplus-linux-drivers
+
+if [ ! -f "jhal/arch/$CPU/$KERNEL/jhal.ko" ]; then
+ echo -e "$ERR Error: Installation failed! (driver module jhal build failed) $NC" 1>&2
+ whiptail --title "Error" --msgbox "Installation failed! (driver module jtec_can build failed)" 10 60
+ exit 1
+fi
+
+/bin/cp -rf jhal/arch/$CPU/$KERNEL/jhal.ko /lib/modules/$KERNEL/kernel/drivers/misc/jhal.ko
+
+# compile jtec_can driver
+wget -nv https://github.com/janztec/empc-x-linux-drivers/raw/master/src/jtec_can.zip -O jtec_can.zip
+unzip jtec_can.zip
+cd jtec_can
+make
 
 if [ ! -f "jtec_can.ko" ]; then
  echo -e "$ERR Error: Installation failed! (driver module jtec_can build failed) $NC" 1>&2
@@ -56,10 +76,8 @@ fi
 
 /bin/cp -rf jtec_can.ko /lib/modules/$KERNEL/kernel/drivers/net/can/
 
+
 depmod -a
-
-
-
 
 
 
