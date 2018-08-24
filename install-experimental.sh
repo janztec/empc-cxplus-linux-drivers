@@ -109,7 +109,7 @@ bash /usr/bin/empc-can-configbaudrate.sh
 
 
 if [ ! -f "/usr/local/bin/cansend" ]; then
- if (whiptail --title "emPC-A/RPI3 Installation Script" --yesno "Third party SocketCan library and utilities\n\n- libsocketcan-0.0.10\n- can-utils\n - candump\n - cansend\n - cangen\n\ninstall?" 16 60) then
+ if (whiptail --title "emPC-CX+ Installation Script" --yesno "Third party SocketCan library and utilities\n\n- libsocketcan-0.0.10\n- can-utils\n - candump\n - cansend\n - cangen\n\ninstall?" 16 60) then
 
     apt-get -y install git
     apt-get -y install autoconf
