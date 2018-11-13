@@ -24,8 +24,11 @@ else
 fi
 
 apt-get update -y
-apt-get -y install bc build-essential unzip linux-headers-$(uname -r)
+apt-get -y install bc build-essential unzip
 
+if ! apt-get -y install linux-headers-$(uname -r); then
+    apt-get -y install linux-headers-amd64 
+fi
 
 if [ ! -f "/lib/modules/$KERNEL/build" ]; then
  ln -s /usr/src/linux-headers-$KERNEL/ /lib/modules/$KERNEL/build
