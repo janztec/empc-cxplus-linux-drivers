@@ -17,7 +17,7 @@ do_start() {
   modprobe jhal
   
   IRQ=$(lspci -d $PCI -v | grep IRQ | tr ' ' '\n' | tail -n1)
-  ADDRESSCAN0=0x$(lspci -d $PCI -v | grep =8K | head -n 1 | grep -o '[0-9]\{8\}')
+  ADDRESSCAN0=0x$(lspci -d $PCI -v | grep =8K | head -n 1 | grep -o '[0-9a-f]\{8\}')
   ADDRESSCAN1=$(printf "0x%X\n" $(($ADDRESSCAN0 + 0x200)))
    
   modprobe can
