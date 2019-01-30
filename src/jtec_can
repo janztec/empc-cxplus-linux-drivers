@@ -12,6 +12,11 @@
 # emPC-CX+ vendor id, device id
 PCI=13c3:2600
 
+if lspci -n | grep "13c3:2a00" > /dev/null; then
+  # emPC-CXR vendor id, device id
+  PCI=13c3:2a00
+fi
+
 do_start() {
 
   modprobe jhal
