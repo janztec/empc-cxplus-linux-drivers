@@ -21,11 +21,5 @@ wget https://raw.githubusercontent.com/janztec/empc-cxplus-linux-drivers/master/
 bash install-experimental.sh
 ```
 
-## Product Pages
-https://www.janztec.com/en/products/embedded-computing/embedded-pc/empc-cx/
-
-https://www.janztec.com/en/products/embedded-computing/panel-pc/emview-12/
-
-https://www.janztec.com/en/products/embedded-computing/panel-pc/emview-15t/
-
-https://www.janztec.com/en/products/embedded-computing/panel-pc/emview-15wt/
+## Product Page
+https://www.janztec.com/industrie-pcs
