@@ -70,6 +70,8 @@ fi
 wget -nv https://github.com/janztec/empc-x-linux-drivers/raw/master/src/jtec_can.zip -O jtec_can.zip
 unzip jtec_can.zip
 cd jtec_can
+# remove unused MODULE_SUPPORTED_DEVICE, because it was removed from kernel > 5.12.x
+sed -i '/^MODULE_SUPPORTED_DEVICE/d' jtec_can.c
 make
 
 if [ ! -f "jtec_can.ko" ]; then
