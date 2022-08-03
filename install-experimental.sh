@@ -54,34 +54,27 @@ CPU=$(if uname -a | grep "x86_64" >/dev/null; then echo "x86_64"; else echo "x86
 wget -nv https://github.com/janztec/empc-cxplus-linux-drivers/raw/master/src/jhal.zip -O jhal.zip
 unzip jhal.zip
 cd jhal
-make driver
+make driver install
 
 cd /tmp/empc-cxplus-linux-drivers
 
-if [ ! -f "jhal/arch/$CPU/$KERNEL/jhal.ko" ]; then
+if [ ! -f "/lib/modules/$KERNEL/kernel/drivers/misc/jhal.ko" ]; then
  echo -e "$ERR Error: Installation failed! (driver module jhal build failed) $NC" 1>&2
  whiptail --title "Error" --msgbox "Installation failed! (driver module jhal build failed)" 10 60
  exit 1
 fi
 
-/bin/cp -rf jhal/arch/$CPU/$KERNEL/jhal.ko /lib/modules/$KERNEL/kernel/drivers/misc/jhal.ko
-
 # compile jtec_can driver
 wget -nv https://github.com/janztec/empc-x-linux-drivers/raw/master/src/jtec_can.zip -O jtec_can.zip
 unzip jtec_can.zip
 cd jtec_can
-# remove unused MODULE_SUPPORTED_DEVICE, because it was removed from kernel > 5.12.x
-sed -i '/^MODULE_SUPPORTED_DEVICE/d' jtec_can.c
-make
+make driver install
 
-if [ ! -f "jtec_can.ko" ]; then
+if [ ! -f "/lib/modules/$KERNEL/kernel/drivers/net/can/jtec_can.ko" ]; then
  echo -e "$ERR Error: Installation failed! (driver module jtec_can build failed) $NC" 1>&2
  whiptail --title "Error" --msgbox "Installation failed! (driver module jtec_can build failed)" 10 60
  exit 1
 fi
-
-/bin/cp -rf jtec_can.ko /lib/modules/$KERNEL/kernel/drivers/net/can/
-
 
 depmod -a
 
