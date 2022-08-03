@@ -70,7 +70,7 @@ unzip jtec_can.zip
 cd jtec_can
 make driver install
 
-if [ ! -f "/lib/modules/$KERNEL/kernel/drivers/net/can/jtec_can.ko" ]; then
+if [ ! -f "/lib/modules/$KERNEL/kernel/drivers/net/can/sja1000/jtec_can.ko" ]; then
  echo -e "$ERR Error: Installation failed! (driver module jtec_can build failed) $NC" 1>&2
  whiptail --title "Error" --msgbox "Installation failed! (driver module jtec_can build failed)" 10 60
  exit 1
